@@ -97,7 +97,7 @@ int main()
     piece = new Piece();
 
     //parametrage de la fenetre
-    fenetrePrincipal.create(sf::VideoMode(largeurFenetre,longueurFenetre), "Bas-Rond Le Panda");
+    fenetrePrincipal.create(sf::VideoMode(largeurFenetre,longueurFenetre), "Bas-Rond Le Panda", sf::Style::Close);
     fenetrePrincipal.setPosition(sf::Vector2i(325,2));
     fenetrePrincipal.setFramerateLimit(60);
 
