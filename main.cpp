@@ -123,14 +123,14 @@ int main()
 
     //music
     sf::Music musicJeu;
-    chargementMusic(musicJeu, "MusicJeu.ogg");
+    chargementMusic(musicJeu, "musiques/MusicJeu.ogg");
 
     sf::Music musicMenu;
-    chargementMusic(musicMenu, "MusicMenu.ogg");
+    chargementMusic(musicMenu, "musiques/MusicMenu.ogg");
 
     //sound
     sf::SoundBuffer clickBuffer;
-    chargementSound(clickBuffer, "click.ogg");
+    chargementSound(clickBuffer, "musiques/click.ogg");
     sf::Sound click;
     click.setBuffer(clickBuffer);
     click.play();
