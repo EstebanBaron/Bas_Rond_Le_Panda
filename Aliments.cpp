@@ -19,7 +19,7 @@ Aliments::Aliments(int x)
 
     if(x == 1)
     {
-        m_texture = "poisson_pourri.png";
+        m_texture = "images/poisson_pourri.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -28,7 +28,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 2)
     {
-        m_texture = "raviolis.png";
+        m_texture = "images/raviolis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -37,7 +37,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 3)
     {
-        m_texture = "sushis.png";
+        m_texture = "images/sushis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -46,7 +46,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 4)
     {
-        m_texture = "soupe.png";
+        m_texture = "images/soupe.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -55,7 +55,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 5)
     {
-        m_texture = "raviolis.png";
+        m_texture = "images/raviolis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -64,7 +64,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 6)
     {
-        m_texture = "sushis.png";
+        m_texture = "images/sushis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -73,7 +73,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 7)
     {
-        m_texture = "soupe.png";
+        m_texture = "images/soupe.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -82,7 +82,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 8)
     {
-        m_texture = "poisson_pourri.png";
+        m_texture = "images/poisson_pourri.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -91,7 +91,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 9)
     {
-        m_texture = "raviolis.png";
+        m_texture = "images/raviolis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -100,7 +100,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 10)
     {
-        m_texture = "soupe.png";
+        m_texture = "images/soupe.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -109,7 +109,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 11)
     {
-        m_texture = "sushis.png";
+        m_texture = "images/sushis.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;
@@ -118,7 +118,7 @@ Aliments::Aliments(int x)
     }
     else if(x == 12)
     {
-        m_texture = "poisson_pourri.png";
+        m_texture = "images/poisson_pourri.png";
         if(!m_aliments.loadFromFile(m_texture))
         {
             std::cout << "Erreur chargement aliment" << std::endl;

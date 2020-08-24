@@ -1,9 +1,9 @@
 #include "Vie.h"
 
-//Méthodes
+//Mï¿½thodes
 Vie::Vie(int x)
 {
-    if(!m_vie.loadFromFile("vie.png"))
+    if(!m_vie.loadFromFile("images/vie.png"))
     {
         std::cout << "Erreur chargement vie" << std::endl;
     }
@@ -11,7 +11,7 @@ Vie::Vie(int x)
     m_vie_size = m_vie.getSize();
     m_sprite_vie.setTexture(m_vie);
 
-    //position de la vie créée
+    //position de la vie crï¿½ï¿½e
     if (x==1)
         m_sprite_vie.setPosition(1,1);
     else if (x==2)

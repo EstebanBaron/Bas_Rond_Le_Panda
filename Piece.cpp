@@ -3,10 +3,10 @@
 //Variables
 int const largeurFenetre = 700;
 
-//Méthodes
+//Mï¿½thodes
 Piece::Piece()
 {
-    if(!m_piece.loadFromFile("piece.png"))
+    if(!m_piece.loadFromFile("images/piece.png"))
     {
         std::cout << "Erreur chargement piece" << std::endl;
     }

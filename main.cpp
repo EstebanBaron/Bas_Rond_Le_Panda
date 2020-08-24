@@ -118,7 +118,7 @@ int main()
 
     //chargement des golds
     sf::Font fontGold;
-    chargementFont(fontGold, textGold, "police.ttf");
+    chargementFont(fontGold, textGold, "polices/police.ttf");
     textGold.setFillColor(couleurText);
 
     //music
@@ -364,9 +364,9 @@ int main()
             chargementImage(fenetrePrincipal, sprite_menu, menu, "images/menuPrincipal.png");
 
             //Boutons
-            Bouton play((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (longueurFenetre/3) - TailleSeparationBoutonMainMenu ,"play.png");
-            Bouton store((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (longueurFenetre/2) - TailleSeparationBoutonMainMenu ,"store.png");
-            Bouton credits((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (2*(longueurFenetre/3)) - TailleSeparationBoutonMainMenu ,"credits.png");
+            Bouton play((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (longueurFenetre/3) - TailleSeparationBoutonMainMenu ,"images/play.png");
+            Bouton store((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (longueurFenetre/2) - TailleSeparationBoutonMainMenu ,"images/store.png");
+            Bouton credits((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (2*(longueurFenetre/3)) - TailleSeparationBoutonMainMenu ,"images/credits.png");
 
             //affichage des �l�ments
             fenetrePrincipal.draw(sprite_menu);
@@ -447,7 +447,7 @@ int main()
 
             //Score
             sf::Font fontScore;
-            chargementFont(fontScore, textScore, "police.ttf");
+            chargementFont(fontScore, textScore, "polices/police.ttf");
             textScore.setString(std::to_string(score));
             textScore.setCharacterSize(40);
             textScore.setFillColor(couleurText);

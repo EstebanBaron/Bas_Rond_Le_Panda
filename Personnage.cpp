@@ -5,11 +5,11 @@ float speedPerso = 11;
 float const largeurFenetre = 700;
 float const longueurFenetre = 690;
 
-//Méthodes
+//Mï¿½thodes
 Personnage::Personnage()
 {
     //Charger le personnage
-    if(!m_perso.loadFromFile("panda.png"))
+    if(!m_perso.loadFromFile("images/panda.png"))
     {
         std::cout << "Erreur chargement perso" << std::endl;
     }
