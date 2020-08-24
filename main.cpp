@@ -102,7 +102,7 @@ int main()
     fenetrePrincipal.setFramerateLimit(60);
 
     //Charger la map
-    chargementImage(fenetrePrincipal, sprite_map, map, "map.png");
+    chargementImage(fenetrePrincipal, sprite_map, map, "images/map.png");
 
     //initialisation des pointeurs
     srand(time(NULL));
@@ -172,7 +172,7 @@ int main()
             click.stop();
 
             //chargement du fond
-            chargementImage(fenetrePrincipal, sprite_debutJeu, debutJeu, "fondDebut.png");
+            chargementImage(fenetrePrincipal, sprite_debutJeu, debutJeu, "images/fondDebut.png");
 
             //temps que reste l'image
             ++tempsDepart;
@@ -188,13 +188,13 @@ int main()
         if(menuBD1 == 1)
         {
             //chargement du fond
-            chargementImage(fenetrePrincipal, sprite_imageBD1, imageBD1, "imageBD1.png");
+            chargementImage(fenetrePrincipal, sprite_imageBD1, imageBD1, "images/imageBD1.png");
             fenetrePrincipal.draw(sprite_imageBD1);
 
             //creation de mes deux boutons
-            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"next.png");
+            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/next.png");
             fenetrePrincipal.draw(next.getSpriteBouton());
-            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"skip.png");
+            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"images/skip.png");
             fenetrePrincipal.draw(skip.getSpriteBouton());
 
             if(tempsDepart == attenteBD)
@@ -224,13 +224,13 @@ int main()
         if(menuBD2 == 1)
         {
             //chargement du fond
-            chargementImage(fenetrePrincipal, sprite_imageBD2, imageBD2, "imageBD2.png");
+            chargementImage(fenetrePrincipal, sprite_imageBD2, imageBD2, "images/imageBD2.png");
             fenetrePrincipal.draw(sprite_imageBD2);
 
             //creation de mes deux boutons
-            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"next.png");
+            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/next.png");
             fenetrePrincipal.draw(next.getSpriteBouton());
-            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"skip.png");
+            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"images/skip.png");
             fenetrePrincipal.draw(skip.getSpriteBouton());
 
             if(tempsDepart == attenteBD)
@@ -260,13 +260,13 @@ int main()
         if(menuBD3 == 1)
         {
             //chargement du fond
-            chargementImage(fenetrePrincipal, sprite_imageBD3, imageBD3, "imageBD3.png");
+            chargementImage(fenetrePrincipal, sprite_imageBD3, imageBD3, "images/imageBD3.png");
             fenetrePrincipal.draw(sprite_imageBD3);
 
             //creation de mes deux boutons
-            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"next.png");
+            Bouton next(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/next.png");
             fenetrePrincipal.draw(next.getSpriteBouton());
-            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"skip.png");
+            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"images/skip.png");
             fenetrePrincipal.draw(skip.getSpriteBouton());
 
             if(tempsDepart == attenteBD)
@@ -299,11 +299,11 @@ int main()
             positionSouris = sf::Mouse::getPosition(fenetrePrincipal);
 
             //chargement du fond
-            chargementImage(fenetrePrincipal, sprite_imageBD4, imageBD4, "imageBD4.png");
+            chargementImage(fenetrePrincipal, sprite_imageBD4, imageBD4, "images/imageBD4.png");
             fenetrePrincipal.draw(sprite_imageBD4);
 
             //creation du bouton
-            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"skip.png");
+            Bouton skip(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"images/skip.png");
             fenetrePrincipal.draw(skip.getSpriteBouton());
 
             //detection du clic
@@ -361,7 +361,7 @@ int main()
             positionSouris = sf::Mouse::getPosition(fenetrePrincipal);
 
             //Image du menu
-            chargementImage(fenetrePrincipal, sprite_menu, menu, "menuPrincipal.png");
+            chargementImage(fenetrePrincipal, sprite_menu, menu, "images/menuPrincipal.png");
 
             //Boutons
             Bouton play((largeurFenetre/2) - (tailleXBoutonMainMenu/2.0), (longueurFenetre/3) - TailleSeparationBoutonMainMenu ,"play.png");
@@ -404,12 +404,12 @@ int main()
             if(menuStore == 1)
             {
                 //chargement du fond
-                chargementImage(fenetrePrincipal, sprite_store, textureStore, "store_menu.png");
+                chargementImage(fenetrePrincipal, sprite_store, textureStore, "images/store_menu.png");
 
                 fenetrePrincipal.draw(sprite_store);
                 fenetrePrincipal.draw(textGold);
                 fenetrePrincipal.draw(piece->getSpritePiece());
-                Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"mainMenu.png");
+                Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/mainMenu.png");
                 fenetrePrincipal.draw(mainMenu.getSpriteBouton());
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
@@ -423,10 +423,10 @@ int main()
             if(menuCredits == 1)
             {
                 //chargement du fond
-                chargementImage(fenetrePrincipal, sprite_credits, textureCredits, "credits_menu.png");
+                chargementImage(fenetrePrincipal, sprite_credits, textureCredits, "images/credits_menu.png");
                 fenetrePrincipal.draw(sprite_credits);
 
-                Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"mainMenu.png");
+                Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/mainMenu.png");
                 fenetrePrincipal.draw(mainMenu.getSpriteBouton());
 
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -463,11 +463,11 @@ int main()
             //collisions Bol
             if(collisionBol(pointeurAliment1,perso))
             {
-                if(pointeurAliment1->getTexture() == "poisson_pourri.png")
+                if(pointeurAliment1->getTexture() == "images/poisson_pourri.png")
                 {
                     nombreVies = 0;
                 }
-                else if(pointeurAliment1->getTexture() == "sushis.png")
+                else if(pointeurAliment1->getTexture() == "images/sushis.png")
                 {
                     score += 1;
                     gold += 2;
@@ -484,12 +484,12 @@ int main()
             }
             if(collisionBol(pointeurAliment2,perso))
             {
-                if(pointeurAliment2->getTexture() == "soupe.png")
+                if(pointeurAliment2->getTexture() == "images/soupe.png")
                 {
                     score += 1;
                     gold += 1;
                 }
-                else if(pointeurAliment2->getTexture() == "sushis.png")
+                else if(pointeurAliment2->getTexture() == "images/sushis.png")
                 {
                     score += 1;
                     gold += 2;
@@ -506,11 +506,11 @@ int main()
             }
             if(collisionBol(pointeurAliment3,perso))
             {
-                if(pointeurAliment3->getTexture() == "poisson_pourri.png")
+                if(pointeurAliment3->getTexture() == "images/poisson_pourri.png")
                 {
                     nombreVies = 0;
                 }
-                else if(pointeurAliment3->getTexture() == "soupe.png")
+                else if(pointeurAliment3->getTexture() == "images/soupe.png")
                 {
                     score += 1;
                     gold += 1;
@@ -527,11 +527,11 @@ int main()
             }
             if(collisionBol(pointeurAliment4,perso))
             {
-                if(pointeurAliment4->getTexture() == "poisson_pourri.png")
+                if(pointeurAliment4->getTexture() == "images/poisson_pourri.png")
                 {
                     nombreVies = 0;
                 }
-                else if(pointeurAliment4->getTexture() == "soupe.png")
+                else if(pointeurAliment4->getTexture() == "images/soupe.png")
                 {
                     score += 1;
                     gold += 1;
@@ -555,7 +555,7 @@ int main()
 
             if(collisionSol(pointeurAliment4))
             {
-                if(!(pointeurAliment4->getTexture() == "poisson_pourri.png"))
+                if(!(pointeurAliment4->getTexture() == "images/poisson_pourri.png"))
                 {
                     nombreVies -= 1;
                 }
@@ -567,7 +567,7 @@ int main()
 
             if(collisionSol(pointeurAliment3))
             {
-                if(!(pointeurAliment3->getTexture() == "poisson_pourri.png"))
+                if(!(pointeurAliment3->getTexture() == "images/poisson_pourri.png"))
                 {
                     nombreVies -= 1;
                 }
@@ -592,7 +592,7 @@ int main()
 
             if(collisionSol(pointeurAliment1))
             {
-                if(!(pointeurAliment1->getTexture() == "poisson_pourri.png"))
+                if(!(pointeurAliment1->getTexture() == "images/poisson_pourri.png"))
                 {
                     nombreVies -= 1;
                 }
@@ -624,12 +624,12 @@ int main()
             }
 
             //chargement de l'image game over
-            chargementImage(fenetrePrincipal, sprite_gameOver, gameOver, "gameOver.png");
+            chargementImage(fenetrePrincipal, sprite_gameOver, gameOver, "images/gameOver.png");
 
             //chargement des boutons du game over
-            Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"mainMenu.png");
+            Bouton mainMenu(tailleXBoutonGameOver/5,longueurFenetre-1.3*tailleYBoutonGameOver,"images/mainMenu.png");
             fenetrePrincipal.draw(mainMenu.getSpriteBouton());
-            Bouton restart(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"restart.png");
+            Bouton restart(3.1*tailleXBoutonGameOver,longueurFenetre-1.3*tailleYBoutonGameOver,"images/restart.png");
             fenetrePrincipal.draw(restart.getSpriteBouton());
 
 
