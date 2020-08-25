@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <time.h>
 #include "Personnage.h"
 #include "Aliments.h"
 #include "Vie.h"
@@ -84,8 +85,8 @@ void changementPosition(Aliments* pointeurAliment1, Aliments* pointeurAliment2, 
 int main()
 {
     //cacher console
-    HWND hWnd = GetConsoleWindow();
-    ShowWindow( hWnd, SW_HIDE );
+    // HWND hWnd = GetConsoleWindow();
+    // ShowWindow( hWnd, SW_HIDE );
 
     //initialisation des objets
     sf::RenderWindow fenetrePrincipal;
@@ -102,17 +103,14 @@ int main()
 
     //initialisation des pointeurs
     srand(time(NULL));
-
-    Aliments *tabAliments = new Aliment[12];
+    
+    Aliments **tabAliments = new Aliments*[12];
     for (int i = 0; i < 12; ++i) {
-        tabAliments[i] = nullptr;        //il faut un constructeur par default d'Aliment
+        std::cout << "ok" << std::endl;
+        *tabAliments[i] = Aliments();  
+        std::cout << "ok" << std::endl;      //il faut un constructeur par default d'Aliment
     }
-
-    bool *choixAliment = new bool[4];
-    for(int i = 0; i < 4; ++i) {
-        choixAliment[i] = false;
-    }
-
+    
     pointeurVie1 = new Vie(1);
     pointeurVie2 = new Vie(2);
     pointeurVie3 = new Vie(3);
@@ -136,6 +134,13 @@ int main()
     click.setBuffer(clickBuffer);
     click.play();
 
+    //chrono
+    clock_t t1 = clock();
+    clock_t t2 = clock();
+
+    //choix zone index
+    int indexZone = -1;
+
     //boucle d'ouverture fenetre
     while(fenetrePrincipal.isOpen())
     {
@@ -148,8 +153,10 @@ int main()
                 delete perso;
                 for (int i = 0; i < 12; ++i) {
                     delete tabAliments[i];
+                    tabAliments[i] = 0;
                 }
                 delete tabAliments;
+                tabAliments = 0;
                 delete pointeurVie1;
                 delete pointeurVie2;
                 delete pointeurVie3;
@@ -452,16 +459,80 @@ int main()
 
             //deplacement objets
             perso->deplacement();
-            // pointeurAliment1->deplacement();
-            // pointeurAliment2->deplacement();
-            // pointeurAliment3->deplacement();
-            // pointeurAliment4->deplacement();
 
-            //faire descendre les aliments avec les tabs de bool et d'alim
+            //temps entre chaque nouveau alim qui descend
+            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.5) {
+                t2 = clock();
+            }
+            else {
+                t1 = t2;
+                indexZone = rand() % 4;
+                if (indexZone == 0) {
+                    int i = 0;
+                    bool libre = false;
+                    while (!libre && i < 3) {
+                        if (tabAliments[i]->getZone() != -1)
+                            libre = true;
+                        else
+                            ++i;
+                    }
+                    //si il y a deja 3 alim de pris dans cette zone on ne fait rien
+                    if (i < 3) {
+                        delete tabAliments[i];
+                        tabAliments[i] = new Aliments(indexZone);
+                    }
+                }
+                else if (indexZone == 1) {
+                    int i = 3;
+                    bool libre = false;
+                    while (!libre && i < 6) {
+                        if (tabAliments[i]->getZone() != -1)
+                            libre = true;
+                        else
+                            ++i;
+                    }
+                    //si il y a deja 3 alim de pris dans cette zone on ne fait rien
+                    if (i >= 3 && i < 6) {
+                        delete tabAliments[i];
+                        tabAliments[i] = new Aliments(indexZone);
+                    }
+                }
+                else if (indexZone == 2) {
+                    int i = 6;
+                    bool libre = false;
+                    while (!libre && i < 9) {
+                        if (tabAliments[i]->getZone() != -1)
+                            libre = true;
+                        else
+                            ++i;
+                    }
+                    //si il y a deja 3 alim de pris dans cette zone on ne fait rien
+                    if (i >= 6 && i < 9) {
+                        delete tabAliments[i];
+                        tabAliments[i] = new Aliments(indexZone);
+                    }
+                }
+                else {
+                    int i = 9;
+                    bool libre = false;
+                    while (!libre && i < 12) {
+                        if (tabAliments[i]->getZone() != -1)
+                            libre = true;
+                        else
+                            ++i;
+                    }
+                    //si il y a deja 3 alim de pris dans cette zone on ne fait rien
+                    if (i >= 9 && i < 12) {
+                        delete tabAliments[i];
+                        tabAliments[i] = new Aliments(indexZone);
+                    }
+                }
+            }
 
-            //collisions Bol
+            //collisions
             for(int i = 0; i < 12; ++i) {
-                if (tabAliments[i]) {
+                if (tabAliments[i]->getZone() != -1) {
+                    tabAliments[i]->deplacement();
                     if (collisionBol(tabAliments[i],perso)) {
                         if(tabAliments[i]->getTexture() == "images/poisson_pourri.png") {
                             nombreVies = 0;
@@ -471,14 +542,14 @@ int main()
                             gold += 3;
                         }
                         delete tabAliments[i];
-                        tabAliments[i] = nullptr;
+                        tabAliments[i] = new Aliments();
                     }
                     else if (collisionSol(tabAliments[i])) {
                         if(!(tabAliments[i]->getTexture() == "images/poisson_pourri.png")) {
                             nombreVies -= 1;
                         }
                         delete tabAliments[i];
-                        tabAliments[i] = 0;
+                        tabAliments[i] = new Aliments();
                     }
                 }
             }
@@ -495,10 +566,10 @@ int main()
             if(nombreVies >= 1)
                 fenetrePrincipal.draw(pointeurVie1->getSpriteVie());
             fenetrePrincipal.draw(perso->getSpritePerso());
-            fenetrePrincipal.draw(pointeurAliment1->getSpriteAliments());
-            fenetrePrincipal.draw(pointeurAliment2->getSpriteAliments());
-            fenetrePrincipal.draw(pointeurAliment3->getSpriteAliments());
-            fenetrePrincipal.draw(pointeurAliment4->getSpriteAliments());
+            for (int i = 0; i < 12; ++i) {
+                if (tabAliments[i]->getZone() != -1)
+                    fenetrePrincipal.draw(tabAliments[i]->getSpriteAliments());
+            }
         }
         //game Over
         else if(nombreVies < 1 && menuPrincipal == 0)
@@ -528,19 +599,13 @@ int main()
                 if(clicSurLesPetitsBouton(restart, fenetrePrincipal))
                 {
                     delete perso;
-                    delete pointeurAliment1;
-                    delete pointeurAliment2;
-                    delete pointeurAliment3;
-                    delete pointeurAliment4;
                     perso = new Personnage();
-                    pointeurAliment1 = new Aliments(rand() % ((3 - 1) + 1) + 1);
-                    changementPosition(pointeurAliment1, pointeurAliment2, pointeurAliment3, pointeurAliment4);
-                    pointeurAliment2 = new Aliments(rand() % ((6 - 4) + 1) + 4);
-                    changementPosition(pointeurAliment2, pointeurAliment1, pointeurAliment3, pointeurAliment4);
-                    pointeurAliment3 = new Aliments(rand() % ((9 - 7) + 1) + 7);
-                    changementPosition(pointeurAliment3, pointeurAliment1, pointeurAliment2, pointeurAliment4);
-                    pointeurAliment4 = new Aliments(rand() % ((12 - 10) + 1) + 10);
-                    changementPosition(pointeurAliment4, pointeurAliment1, pointeurAliment2, pointeurAliment3);
+                    for (int i = 0; i < 12; ++i) {
+                        if (tabAliments[i]->getZone() != -1) {
+                            delete tabAliments[i];
+                            tabAliments[i] = new Aliments();
+                        }
+                    }
                     score = 0;
                     nombreVies = 3;
                     click.play();
@@ -551,19 +616,13 @@ int main()
                 else if(clicSurLesPetitsBouton(mainMenu, fenetrePrincipal))
                 {
                     delete perso;
-                    delete pointeurAliment1;
-                    delete pointeurAliment2;
-                    delete pointeurAliment3;
-                    delete pointeurAliment4;
                     perso = new Personnage();
-                    pointeurAliment1 = new Aliments(rand() % ((3 - 1) + 1) + 1);
-                    changementPosition(pointeurAliment1, pointeurAliment2, pointeurAliment3, pointeurAliment4);
-                    pointeurAliment2 = new Aliments(rand() % ((6 - 4) + 1) + 4);
-                    changementPosition(pointeurAliment2, pointeurAliment1, pointeurAliment3, pointeurAliment4);
-                    pointeurAliment3 = new Aliments(rand() % ((9 - 7) + 1) + 7);
-                    changementPosition(pointeurAliment3, pointeurAliment1, pointeurAliment2, pointeurAliment4);
-                    pointeurAliment4 = new Aliments(rand() % ((12 - 10) + 1) + 10);
-                    changementPosition(pointeurAliment4, pointeurAliment1, pointeurAliment2, pointeurAliment3);
+                    for (int i = 0; i < 12; ++i) {
+                        if (tabAliments[i]->getZone() != -1) {
+                            delete tabAliments[i];
+                            tabAliments[i] = new Aliments();
+                        }
+                    }
                     score = 0;
                     menuPrincipal = 1;
                     click.play();

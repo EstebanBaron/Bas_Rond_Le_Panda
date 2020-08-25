@@ -15,6 +15,7 @@ class Aliments
     ~Aliments();
     sf::Sprite getSpriteAliments() const;
     std::string getTexture() const;
+    int getZone() const;
     void deplacement();
 
 
@@ -27,6 +28,7 @@ class Aliments
     int m_depasseAlimentsY;
     int m_zone;
     int m_numAlim;
+    static const float m_speedAliments;
 };
 
 #endif // ALIMENTS_H_INCLUDED
