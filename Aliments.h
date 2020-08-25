@@ -11,7 +11,7 @@ class Aliments
 {
     public :
     Aliments();
-    Aliments(int x);
+    Aliments(int zone);
     ~Aliments();
     sf::Sprite getSpriteAliments() const;
     std::string getTexture() const;
@@ -25,6 +25,8 @@ class Aliments
     sf::Vector2u m_aliments_size;
     int m_depasseAlimentsX;
     int m_depasseAlimentsY;
+    int m_zone;
+    int m_numAlim;
 };
 
 #endif // ALIMENTS_H_INCLUDED

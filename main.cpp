@@ -35,10 +35,6 @@ sf::Sprite sprite_imageBD4;
 float const largeurFenetre = 700;
 float const longueurFenetre = 690;
 Personnage *perso(0);
-Aliments *pointeurAliment1(0);
-Aliments *pointeurAliment2(0);
-Aliments *pointeurAliment3(0);
-Aliments *pointeurAliment4(0);
 Vie *pointeurVie1(0);
 Vie *pointeurVie2(0);
 Vie *pointeurVie3(0);
@@ -107,10 +103,15 @@ int main()
     //initialisation des pointeurs
     srand(time(NULL));
 
-    pointeurAliment1 = new Aliments(rand() % ((3 - 1) + 1) + 1);
-    pointeurAliment2 = new Aliments(rand() % ((6 - 4) + 1) + 4);
-    pointeurAliment3 = new Aliments(rand() % ((9 - 7) + 1) + 7);
-    pointeurAliment4 = new Aliments(rand() % ((12 - 10) + 1) + 10);
+    Aliments *tabAliments = new Aliment[12];
+    for (int i = 0; i < 12; ++i) {
+        tabAliments[i] = nullptr;        //il faut un constructeur par default d'Aliment
+    }
+
+    bool *choixAliment = new bool[4];
+    for(int i = 0; i < 4; ++i) {
+        choixAliment[i] = false;
+    }
 
     pointeurVie1 = new Vie(1);
     pointeurVie2 = new Vie(2);
@@ -145,18 +146,14 @@ int main()
             if (event.type == sf::Event::Closed)
             {
                 delete perso;
-                delete pointeurAliment1;
-                delete pointeurAliment2;
-                delete pointeurAliment3;
-                delete pointeurAliment4;
+                for (int i = 0; i < 12; ++i) {
+                    delete tabAliments[i];
+                }
+                delete tabAliments;
                 delete pointeurVie1;
                 delete pointeurVie2;
                 delete pointeurVie3;
                 perso = 0;
-                pointeurAliment1 = 0;
-                pointeurAliment2 = 0;
-                pointeurAliment3 = 0;
-                pointeurAliment4 = 0;
                 pointeurVie1 = 0;
                 pointeurVie2 = 0;
                 pointeurVie3 = 0;
@@ -455,96 +452,35 @@ int main()
 
             //deplacement objets
             perso->deplacement();
-            pointeurAliment1->deplacement();
-            pointeurAliment2->deplacement();
-            pointeurAliment3->deplacement();
-            pointeurAliment4->deplacement();
+            // pointeurAliment1->deplacement();
+            // pointeurAliment2->deplacement();
+            // pointeurAliment3->deplacement();
+            // pointeurAliment4->deplacement();
+
+            //faire descendre les aliments avec les tabs de bool et d'alim
 
             //collisions Bol
-            if(collisionBol(pointeurAliment1,perso))
-            {
-                if(pointeurAliment1->getTexture() == "images/poisson_pourri.png")
-                {
-                    nombreVies = 0;
+            for(int i = 0; i < 12; ++i) {
+                if (tabAliments[i]) {
+                    if (collisionBol(tabAliments[i],perso)) {
+                        if(tabAliments[i]->getTexture() == "images/poisson_pourri.png") {
+                            nombreVies = 0;
+                        }
+                        else {
+                            score += 1;
+                            gold += 3;
+                        }
+                        delete tabAliments[i];
+                        tabAliments[i] = nullptr;
+                    }
+                    else if (collisionSol(tabAliments[i])) {
+                        if(!(tabAliments[i]->getTexture() == "images/poisson_pourri.png")) {
+                            nombreVies -= 1;
+                        }
+                        delete tabAliments[i];
+                        tabAliments[i] = 0;
+                    }
                 }
-                else if(pointeurAliment1->getTexture() == "images/sushis.png")
-                {
-                    score += 1;
-                    gold += 2;
-                }
-                else
-                {
-                    score += 1;
-                    gold += 3;
-                }
-                delete pointeurAliment1;
-                pointeurAliment1 = 0;
-                pointeurAliment1 = new Aliments(rand() % ((3 - 1) + 1) + 1);
-                changementPosition(pointeurAliment1, pointeurAliment2, pointeurAliment3, pointeurAliment4);
-            }
-            if(collisionBol(pointeurAliment2,perso))
-            {
-                if(pointeurAliment2->getTexture() == "images/soupe.png")
-                {
-                    score += 1;
-                    gold += 1;
-                }
-                else if(pointeurAliment2->getTexture() == "images/sushis.png")
-                {
-                    score += 1;
-                    gold += 2;
-                }
-                else
-                {
-                    score += 1;
-                    gold += 3;
-                }
-                delete pointeurAliment2;
-                pointeurAliment2 = 0;
-                pointeurAliment2 = new Aliments(rand() % ((6 - 4) + 1) + 4);
-                changementPosition(pointeurAliment2, pointeurAliment1, pointeurAliment3, pointeurAliment4);
-            }
-            if(collisionBol(pointeurAliment3,perso))
-            {
-                if(pointeurAliment3->getTexture() == "images/poisson_pourri.png")
-                {
-                    nombreVies = 0;
-                }
-                else if(pointeurAliment3->getTexture() == "images/soupe.png")
-                {
-                    score += 1;
-                    gold += 1;
-                }
-                else
-                {
-                    score += 1;
-                    gold += 3;
-                }
-                delete pointeurAliment3;
-                pointeurAliment3 = 0;
-                pointeurAliment3 = new Aliments(rand() % ((9 - 7) + 1) + 7);
-                changementPosition(pointeurAliment3, pointeurAliment1, pointeurAliment2, pointeurAliment4);
-            }
-            if(collisionBol(pointeurAliment4,perso))
-            {
-                if(pointeurAliment4->getTexture() == "images/poisson_pourri.png")
-                {
-                    nombreVies = 0;
-                }
-                else if(pointeurAliment4->getTexture() == "images/soupe.png")
-                {
-                    score += 1;
-                    gold += 1;
-                }
-                else
-                {
-                    score += 1;
-                    gold += 2;
-                }
-                delete pointeurAliment4;
-                pointeurAliment4 = 0;
-                pointeurAliment4 = new Aliments(rand() % ((12 - 10) + 1) + 10);
-                changementPosition(pointeurAliment4, pointeurAliment1, pointeurAliment2, pointeurAliment3);
             }
 
             //Affichage des objets
@@ -552,58 +488,12 @@ int main()
             fenetrePrincipal.draw(textScore);
             fenetrePrincipal.draw(textGold);
             fenetrePrincipal.draw(piece->getSpritePiece());
-
-            if(collisionSol(pointeurAliment4))
-            {
-                if(!(pointeurAliment4->getTexture() == "images/poisson_pourri.png"))
-                {
-                    nombreVies -= 1;
-                }
-                delete pointeurAliment4;
-                pointeurAliment4 = 0;
-                pointeurAliment4 = new Aliments(rand() % ((12 - 10) + 1) + 10);
-                changementPosition(pointeurAliment4, pointeurAliment1, pointeurAliment2, pointeurAliment3);
-            }
-
-            if(collisionSol(pointeurAliment3))
-            {
-                if(!(pointeurAliment3->getTexture() == "images/poisson_pourri.png"))
-                {
-                    nombreVies -= 1;
-                }
-                delete pointeurAliment3;
-                pointeurAliment3 = 0;
-                pointeurAliment3 = new Aliments(rand() % ((9 - 7) + 1) + 7);
-                changementPosition(pointeurAliment3, pointeurAliment1, pointeurAliment2, pointeurAliment4);
-            }
             if(nombreVies>=3)
                 fenetrePrincipal.draw(pointeurVie3->getSpriteVie());
-
-            if(collisionSol(pointeurAliment2))
-            {
-                nombreVies -= 1;
-                delete pointeurAliment2;
-                pointeurAliment2 = 0;
-                pointeurAliment2 = new Aliments(rand() % ((6 - 4) + 1) + 4);
-                changementPosition(pointeurAliment2, pointeurAliment1, pointeurAliment3, pointeurAliment4);
-            }
             if(nombreVies>=2)
                 fenetrePrincipal.draw(pointeurVie2->getSpriteVie());
-
-            if(collisionSol(pointeurAliment1))
-            {
-                if(!(pointeurAliment1->getTexture() == "images/poisson_pourri.png"))
-                {
-                    nombreVies -= 1;
-                }
-                delete pointeurAliment1;
-                pointeurAliment1 = 0;
-                pointeurAliment1 = new Aliments(rand() % ((3 - 1) + 1) + 1);
-                changementPosition(pointeurAliment1, pointeurAliment2, pointeurAliment3, pointeurAliment4);
-            }
             if(nombreVies >= 1)
                 fenetrePrincipal.draw(pointeurVie1->getSpriteVie());
-
             fenetrePrincipal.draw(perso->getSpritePerso());
             fenetrePrincipal.draw(pointeurAliment1->getSpriteAliments());
             fenetrePrincipal.draw(pointeurAliment2->getSpriteAliments());
