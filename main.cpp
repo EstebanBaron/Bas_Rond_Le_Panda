@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <time.h>
+#include <fstream>
+#include <regex>
 #include "Personnage.h"
 #include "Aliments.h"
 #include "Vie.h"
@@ -46,8 +48,6 @@ int TailleDepasseY = 112;
 int depasseBolDessous = 100;
 sf::Text textScore;
 int score = 0;
-sf::Text textGold;
-int gold = 0;
 int nombreVies;
 int tailleXBoutonGameOver = 162; //taille x et y des boutons du game over
 int tailleYBoutonGameOver = 54;
@@ -81,12 +81,14 @@ void chargementFont(sf::Font& font, sf::Text& text, std::string nom);
 void chargementMusic(sf::Music& music, std::string nom);
 void chargementSound(sf::SoundBuffer& sound, std::string nom);
 void changementPosition(Aliments* pointeurAliment1, Aliments* pointeurAliment2, Aliments* pointeurAliment3, Aliments* pointeurAliment4);
+int getGold();
+void setGold(int golds);
 
 int main()
 {
     //cacher console
-    // HWND hWnd = GetConsoleWindow();
-    // ShowWindow( hWnd, SW_HIDE );
+    HWND hWnd = GetConsoleWindow();
+    ShowWindow( hWnd, SW_HIDE );
 
     //initialisation des objets
     sf::RenderWindow fenetrePrincipal;
@@ -114,6 +116,8 @@ int main()
     pointeurVie3 = new Vie(3);
 
     //chargement des golds
+    sf::Text textGold;
+    int gold = getGold();
     sf::Font fontGold;
     chargementFont(fontGold, textGold, "polices/police.ttf");
     textGold.setFillColor(couleurText);
@@ -469,7 +473,6 @@ int main()
                     indexZone = rand() % 4;
                 }
                 lastIndex = indexZone;
-                std::cout << indexZone << std::endl;
                 if (indexZone == 0) {
                     int i = 0;
                     bool libre = false;
@@ -586,6 +589,8 @@ int main()
                 musicMenu.setLoop(true);
                 playMusic = 0;
             }
+
+            setGold(gold);
 
             //chargement de l'image game over
             chargementImage(fenetrePrincipal, sprite_gameOver, gameOver, "images/gameOver.png");
@@ -709,4 +714,48 @@ void changementPosition(Aliments* pointeurAliment1, Aliments* pointeurAliment2, 
     {
        pointeurAliment1->getSpriteAliments().setPosition(pointeurAliment1->getSpriteAliments().getPosition().x, pointeurAliment1->getSpriteAliments().getPosition().y - 300);
     }
+}
+
+int getGold() {
+    std::ifstream fichier("sauvegardes/save.txt");
+
+    int golds = 0;
+
+    if(fichier) {
+        std::string ligne;
+        const std::regex base_regex("golds\\=([0-9]+)");
+        std::smatch base_match;
+        while(std::getline(fichier, ligne)) {
+            if(std::regex_match(ligne, base_match, base_regex)) {
+                golds = std::stoi(base_match[1].str());
+            }
+        }
+    }
+    else {
+        std::cerr << "erreur d'ouverture de fichier" << std::endl;
+    }
+    fichier.close();
+
+    return golds;
+}
+
+void setGold(int golds) {
+    std::ofstream fichier("sauvegardes/save.txt");
+
+    std::string ligne;
+
+    if(fichier) {
+        // std::string ligne;
+        // const std::regex base_regex("golds\\=([0-9]+)");
+        // std::smatch base_match;
+        // while(std::getline(fichier, ligne)) {
+        //     if(std::regex_match(ligne, base_match, base_regex)) {
+        //         ligne = "golds=" + golds;
+        //     }
+        // }
+    }
+    else {
+        std::cerr << "erreur d'ouverture de fichier" << std::endl;
+    }
+    fichier.close();
 }
