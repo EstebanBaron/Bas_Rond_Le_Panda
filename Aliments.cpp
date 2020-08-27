@@ -5,7 +5,7 @@ const float Aliments::m_speedAliments = 6.0;
 //Methodes
 Aliments::Aliments() {
     m_aliments = sf::Texture();
-    m_texture = nullptr;
+    m_texture = "";
     m_sprite_aliments = sf::Sprite();
     m_aliments_size = sf::Vector2u();
     m_depasseAlimentsX = -1;
@@ -15,11 +15,9 @@ Aliments::Aliments() {
 }
 
 Aliments::Aliments(int zone) {
-    srand(time(NULL));
+    // srand(time(NULL));
 
     //Variables
-    int TailleFenetreMoinsTailleAliment = 589;
-
     int unQuartEcran = (700.0/4);
     int moitierEcran = (700.0/2);
     int troisQuartEcran = 3 * (700.0/4);

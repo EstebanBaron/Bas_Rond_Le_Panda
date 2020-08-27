@@ -6,6 +6,7 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
+#include <random>
 
 class Aliments
 {

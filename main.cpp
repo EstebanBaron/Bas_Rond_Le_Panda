@@ -106,9 +106,7 @@ int main()
     
     Aliments **tabAliments = new Aliments*[12];
     for (int i = 0; i < 12; ++i) {
-        std::cout << "ok" << std::endl;
-        *tabAliments[i] = Aliments();  
-        std::cout << "ok" << std::endl;      //il faut un constructeur par default d'Aliment
+        tabAliments[i] = new Aliments();
     }
     
     pointeurVie1 = new Vie(1);
@@ -140,6 +138,7 @@ int main()
 
     //choix zone index
     int indexZone = -1;
+    int lastIndex = indexZone;
 
     //boucle d'ouverture fenetre
     while(fenetrePrincipal.isOpen())
@@ -461,17 +460,21 @@ int main()
             perso->deplacement();
 
             //temps entre chaque nouveau alim qui descend
-            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.5) {
+            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.7) {
                 t2 = clock();
             }
             else {
                 t1 = t2;
-                indexZone = rand() % 4;
+                while (indexZone == lastIndex) {
+                    indexZone = rand() % 4;
+                }
+                lastIndex = indexZone;
+                std::cout << indexZone << std::endl;
                 if (indexZone == 0) {
                     int i = 0;
                     bool libre = false;
                     while (!libre && i < 3) {
-                        if (tabAliments[i]->getZone() != -1)
+                        if (tabAliments[i]->getZone() == -1)
                             libre = true;
                         else
                             ++i;
@@ -486,7 +489,7 @@ int main()
                     int i = 3;
                     bool libre = false;
                     while (!libre && i < 6) {
-                        if (tabAliments[i]->getZone() != -1)
+                        if (tabAliments[i]->getZone() == -1)
                             libre = true;
                         else
                             ++i;
@@ -501,7 +504,7 @@ int main()
                     int i = 6;
                     bool libre = false;
                     while (!libre && i < 9) {
-                        if (tabAliments[i]->getZone() != -1)
+                        if (tabAliments[i]->getZone() == -1)
                             libre = true;
                         else
                             ++i;
@@ -516,7 +519,7 @@ int main()
                     int i = 9;
                     bool libre = false;
                     while (!libre && i < 12) {
-                        if (tabAliments[i]->getZone() != -1)
+                        if (tabAliments[i]->getZone() == -1)
                             libre = true;
                         else
                             ++i;
