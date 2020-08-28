@@ -140,6 +140,9 @@ int main()
     clock_t t1 = clock();
     clock_t t2 = clock();
 
+    clock_t tempsDeplacement1 = clock();
+    clock_t tempsDeplacement2 = clock();
+
     //choix zone index
     int indexZone = -1;
     int lastIndex = indexZone;
@@ -462,9 +465,20 @@ int main()
 
             //deplacement objets
             perso->deplacement();
+            if((double)(tempsDeplacement2-tempsDeplacement1)/CLOCKS_PER_SEC < 0.0001) {
+                tempsDeplacement2 = clock();
+            }
+            else {
+                tempsDeplacement1 = tempsDeplacement2;
+                for(int i = 0; i < 12; ++i) {
+                    if (tabAliments[i]->getZone() != -1) {
+                        tabAliments[i]->deplacement();
+                    }
+                }
+            }
 
-            //temps entre chaque nouveau alim qui descend
-            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.7) {
+            //temps entre chaque nouveau alim qui descend (le dimunuer pour avoir plus d'aliment en meme temps)
+            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.65) {
                 t2 = clock();
             }
             else {
@@ -538,7 +552,6 @@ int main()
             //collisions
             for(int i = 0; i < 12; ++i) {
                 if (tabAliments[i]->getZone() != -1) {
-                    tabAliments[i]->deplacement();
                     if (collisionBol(tabAliments[i],perso)) {
                         if(tabAliments[i]->getTexture() == "images/poisson_pourri.png") {
                             nombreVies = 0;
@@ -740,19 +753,11 @@ int getGold() {
 }
 
 void setGold(int golds) {
-    std::ofstream fichier("sauvegardes/save.txt");
-
-    std::string ligne;
+    std::ofstream fichier;
+    fichier.open("sauvegardes/save.txt", std::ofstream::out | std::ofstream::trunc);
 
     if(fichier) {
-        // std::string ligne;
-        // const std::regex base_regex("golds\\=([0-9]+)");
-        // std::smatch base_match;
-        // while(std::getline(fichier, ligne)) {
-        //     if(std::regex_match(ligne, base_match, base_regex)) {
-        //         ligne = "golds=" + golds;
-        //     }
-        // }
+        fichier << "golds=" << std::to_string(golds);
     }
     else {
         std::cerr << "erreur d'ouverture de fichier" << std::endl;

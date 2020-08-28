@@ -1,6 +1,6 @@
 #include "Aliments.h"
 
-const float Aliments::m_speedAliments = 6.0;
+const float Aliments::m_speedAliments = 10.0;
 
 //Methodes
 Aliments::Aliments() {
@@ -45,7 +45,7 @@ Aliments::Aliments(int zone) {
         m_texture = "images/sushis.png";
     else if (m_numAlim == 2)
         m_texture = "images/raviolis.png";
-    else
+    else if(m_numAlim == 3)
         m_texture = "images/soupe.png";
 
     if(!m_aliments.loadFromFile(m_texture)) {
