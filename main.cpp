@@ -147,6 +147,12 @@ int main()
     int indexZone = -1;
     int lastIndex = indexZone;
 
+    //temps min entre deux alim
+    clock_t tNewAlim1 = clock();
+    clock_t tNewAlim2 = clock();
+    float tempsNewAlim = 0.65;
+    float tempsMinNewAlim = 0.5;
+
     //boucle d'ouverture fenetre
     while(fenetrePrincipal.isOpen())
     {
@@ -477,8 +483,19 @@ int main()
                 }
             }
 
+            //acceleration du spawn des alims
+            if ((float)(tNewAlim2-tNewAlim1)/CLOCKS_PER_SEC < 1.0) {
+                tNewAlim2 = clock();
+            }
+            else {
+                tNewAlim1 = tNewAlim2;
+                if(tempsNewAlim > tempsMinNewAlim) {
+                    tempsNewAlim -= 0.005;
+                }
+            }
+
             //temps entre chaque nouveau alim qui descend (le dimunuer pour avoir plus d'aliment en meme temps)
-            if ((float)(t2-t1)/CLOCKS_PER_SEC < 0.65) {
+            if ((float)(t2-t1)/CLOCKS_PER_SEC < tempsNewAlim) {
                 t2 = clock();
             }
             else {
